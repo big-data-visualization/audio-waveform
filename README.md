@@ -2,11 +2,12 @@
 
 Simple audio waveform visualization, depends on d3.
 
+![screenshot](https://raw.githubusercontent.com/big-data-visualization/audio-waveform/assets/screenshot.png)
 ============
 
 ## Demo
 
-http://leecade.github.io/audio-waveform/
+http://big-data-visualization.github.io/audio-waveform/
 
 ## Compatibility
 
