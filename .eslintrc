@@ -1,0 +1,20 @@
+{
+    "env": {
+        "browser": true,
+        "node": true,
+        "amd": true
+    },
+    "rules": {
+        "curly": 0,
+        "no-new-func": 0,
+        "no-eval": 1,
+        "no-return-assign": 0,
+        "no-unused-expressions": 0,
+        "no-underscore-dangle": 0,
+        "semi": 0,
+        "strict": 0,
+        "no-empty": 1,
+        "no-constant-condition": 1,
+        "no-unused-vars": [1, {"vars": "local", "args": "after-used"}]
+    }
+}

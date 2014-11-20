@@ -1,0 +1,27 @@
+{
+  "name": "audio-waveform",
+  "version": "0.1.0",
+  "keyworld": [
+    "audio", "waveform", "visualization", "data"
+  ],
+  "description": "Simple audio waveform visualization, depends on d3.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/big-data-visualization/audio-waveform.git"
+  },
+  "devDependencies": {
+    "gulp-wrap": "*",
+    "gulp-uglify": "*",
+    "gulp-rename": "*",
+    "gulp-load-plugins": "*",
+    "gulp-jsbeautifier": "*",
+    "gulp-serve": "*",
+    "gulp": "*"
+  },
+  "dependencies": {
+
+  },
+  "script": {
+    "start": "gulp"
+  }
+}
