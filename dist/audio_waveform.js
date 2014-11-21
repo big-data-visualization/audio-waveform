@@ -50,16 +50,15 @@
         that.opts = opts
         that.selector = opts.selector
         that.fps = opts.fps || 60
-
         that.onError = opts.onError || noop
         that.onMouseover = opts.onMouseover || noop
         that.onMouseout = opts.onMouseout || noop
+        that.onUpdate = opts.onUpdate || noop
         that.buflen = opts.buflen || 1024
         that.buf = new Uint8Array(that.buflen)
 
         supportAudio = that.initRender()
             .setupStream()
-
         supportAudio && supportAudio.loop()
 
         return that
@@ -75,12 +74,9 @@
             then = +new Date
 
         return function loop() {
-
             rAF(loop)
-
             var now = +new Date,
                 delta = now - then
-
             if (delta > interval) {
                 then = now - (delta % interval)
                 that.updateRender()
@@ -94,6 +90,7 @@
      */
     fn.initRender = function() {
         var that = this
+
         that.wrap = d3.select(that.selector)
         that.width = parseFloat(that.opts.width || that.wrap.style("width"))
         that.height = parseFloat(that.opts.height || that.wrap.style("height"))
@@ -101,7 +98,6 @@
         that.xScale = d3.scale.linear()
             .domain([0, that.buflen])
             .rangeRound([0, that.width])
-
         that.yScale = d3.scale.linear()
             .domain([0, 255])
             .rangeRound([that.height, 0])
@@ -114,9 +110,7 @@
             .on({
                 mouseover: function(e) {
                     that.onMouseover.call(that, e)
-                }
-
-                ,
+                },
                 mouseout: function(e) {
                     that.onMouseout.call(that, e)
                 }
@@ -128,7 +122,6 @@
             .data(that.buf)
             .enter()
             .append("line")
-
         return that
     }
 
@@ -138,18 +131,15 @@
      */
     fn.setupStream = function() {
         var that = this,
-            nav = navigator
-
-        , audio = WIN.AudioContext || WIN.webkitAudioContext
-
-        , userMedia = nav.getUserMedia || nav.webkitGetUserMedia || nav.mozGetUserMedia
+            nav = navigator,
+            audio = WIN.AudioContext || WIN.webkitAudioContext,
+            userMedia = nav.getUserMedia || nav.webkitGetUserMedia || nav.mozGetUserMedia
 
         // First detect `audio` / `getUserMedia` support.
         if (!audio || !userMedia) return that.onError()
 
-        audio = new audio()
-
         // Create audio analyser.
+        audio = new audio()
         that.analyser = audio.createAnalyser()
         that.analyser.fftSize = that.buflen
 
@@ -162,7 +152,6 @@
         } catch (e) {
             return that.onError()
         }
-
         return that
     }
 
@@ -173,9 +162,7 @@
     fn.updateRender = function() {
         var that = this
         if (!that.analyser) return
-
         that.analyser.getByteTimeDomainData(that.buf)
-
         that.waveforms && that.waveforms.data(that.buf)
             .attr({
                 "x1": function(d, i) {
@@ -191,6 +178,7 @@
                     return that.yScale(d)
                 }
             })
+        that.onUpdate(that, that.buf)
         return that
     }
 

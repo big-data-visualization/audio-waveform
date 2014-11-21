@@ -89,6 +89,7 @@ Use these options like:
 | onError     | `Function` | empty function | On error handle, maybe not supports `getUserMedia/Stream API` |
 | onMouseover     | `Function` | empty function | On mouseover handle. |
 | onMouseout     | `NumFunctionber` | empty function | On mouseout handle. |
+| onUpdate     | `NumFunctionber` | empty function | On update handle, the way to sync audio buffer. |
 | buflen     | `Number` | 1024 | The audio stream buffer length. |
 
 ## Development
