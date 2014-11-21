@@ -178,7 +178,7 @@
                     return that.yScale(d)
                 }
             })
-        that.onUpdate(that, that.buf)
+        that.onUpdate.call(that, that.buf)
         return that
     }
 
